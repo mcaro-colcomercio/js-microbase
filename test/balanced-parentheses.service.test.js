@@ -10,6 +10,6 @@ const BalancedParentheses = require(
 describe('Should Style: Balanced Parentheses', () => {
   it('( should not be balanced', () => {
     let balancedParentheses = new BalancedParentheses();
-    balancedParentheses.validate().should.equal(false);
+    balancedParentheses.validate('(').should.equal(false);
   });
 });

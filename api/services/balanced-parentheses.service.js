@@ -2,8 +2,8 @@
 'use strict';
 
 class BalancedParentheses {
-  validate() {
-    return true;
+  validate(data) {
+    return data.length === 2;
   }
 }
 
