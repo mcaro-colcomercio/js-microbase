@@ -3,7 +3,7 @@
 
 class BalancedParentheses {
   validate(data) {
-    return data.length === 2;
+    return data.length === 2 && data[0] === '(';
   }
 }
 
