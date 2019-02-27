@@ -3,7 +3,16 @@
 
 class BalancedParentheses {
   validate(data) {
-    return data.length === 2 && data[0] === '(';
+    return this.beginWithOpenParentheses(data) &&
+      this.pair(data);
+  }
+
+  beginWithOpenParentheses(data) {
+    return data[0] === '(';
+  }
+
+  pair(data) {
+    return data.length === 2;
   }
 }
 
