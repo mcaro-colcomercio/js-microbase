@@ -12,4 +12,9 @@ describe('Should Style: Balanced Parentheses', () => {
     let balancedParentheses = new BalancedParentheses();
     balancedParentheses.validate('(').should.equal(false);
   });
+
+  it('() should be balanced', () => {
+    let balancedParentheses = new BalancedParentheses();
+    balancedParentheses.validate('()').should.equal(true);
+  });
 });
