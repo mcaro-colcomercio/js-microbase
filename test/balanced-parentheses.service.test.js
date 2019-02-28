@@ -9,42 +9,52 @@ const BalancedParentheses = require(
 
 describe('Should Style: Balanced Parentheses', () => {
   it('( should not be balanced', () => {
-    let balancedParentheses = new BalancedParentheses();
-    balancedParentheses.validate('(').should.equal(false);
+    let balancedParentheses = new BalancedParentheses('(');
+    balancedParentheses.validate().should.equal(false);
   });
 
   it('() should be balanced', () => {
-    let balancedParentheses = new BalancedParentheses();
-    balancedParentheses.validate('()').should.equal(true);
+    let balancedParentheses = new BalancedParentheses('()');
+    balancedParentheses.validate().should.equal(true);
   });
 
   it(')( should not be balanced', () => {
-    let balancedParentheses = new BalancedParentheses();
-    balancedParentheses.validate(')(').should.equal(false);
+    let balancedParentheses = new BalancedParentheses(')(');
+    balancedParentheses.validate().should.equal(false);
   });
 
   it('()( should not be balanced', () => {
-    let balancedParentheses = new BalancedParentheses();
-    balancedParentheses.validate('()(').should.equal(false);
+    let balancedParentheses = new BalancedParentheses('()(');
+    balancedParentheses.validate().should.equal(false);
   });
 
   it(')()( should not be balanced', () => {
-    let balancedParentheses = new BalancedParentheses();
-    balancedParentheses.validate(')()(').should.equal(false);
+    let balancedParentheses = new BalancedParentheses(')()(');
+    balancedParentheses.validate().should.equal(false);
   });
 
   it('())) should not be balanced', () => {
-    let balancedParentheses = new BalancedParentheses();
-    balancedParentheses.validate('((()))').should.equal(false);
+    let balancedParentheses = new BalancedParentheses('()))');
+    balancedParentheses.validate().should.equal(false);
   });
 
   it('((()) should not be balanced', () => {
-    let balancedParentheses = new BalancedParentheses();
-    balancedParentheses.validate('((())').should.equal(false);
+    let balancedParentheses = new BalancedParentheses('((())');
+    balancedParentheses.validate().should.equal(false);
+  });
+
+  it('(())) should not be balanced', () => {
+    let balancedParentheses = new BalancedParentheses('(()))');
+    balancedParentheses.validate().should.equal(false);
   });
 
   it('((())) should be balanced', () => {
-    let balancedParentheses = new BalancedParentheses();
-    balancedParentheses.validate('((()))').should.equal(true);
+    let balancedParentheses = new BalancedParentheses('((()))');
+    balancedParentheses.validate().should.equal(true);
+  });
+
+  it('a()) should not be balanced', () => {
+    let balancedParentheses = new BalancedParentheses('a())');
+    balancedParentheses.validate().should.equal(false);
   });
 });
