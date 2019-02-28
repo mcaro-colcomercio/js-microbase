@@ -12,7 +12,7 @@ class BalancedParentheses {
   }
 
   pair(data) {
-    return data.length === 2;
+    return data.length % 2 === 0;
   }
 }
 
