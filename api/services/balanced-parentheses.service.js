@@ -26,11 +26,11 @@ class BalancedParentheses {
   }
 
   isEmpty() {
-    return this.data.length <= 1;
+    return this.data.length === 0;
   }
 
   cleanNonParentheses() {
-    this.data = this.data.match(/\(|\)/g);
+    this.data = this.data.match(/\(|\)|\[|\]/g);
   }
 
   validateByElement() {
@@ -46,7 +46,11 @@ class BalancedParentheses {
         break;
       }
 
-      if (this.isClose(element) && this.stack.length > 0) {
+      if (
+        this.isClose(element) &&
+        this.stack.length > 0 &&
+        this.isSameType(this.data[i - 1], element)
+      ) {
         this.stack.pop();
       }
 
@@ -59,11 +63,30 @@ class BalancedParentheses {
   }
 
   isOpen(element) {
-    return element === '(';
+    return element === '(' || element === '[';
   }
 
   isClose(element) {
-    return element === ')';
+    return element === ')' || element === ']';
+  }
+
+  isSameType(prev, current) {
+    return this.whoIs(prev) === this.whoIs(current);
+  }
+
+  whoIs(current) {
+    switch (current) {
+      case '(':
+        return 'round';
+      case ')':
+        return 'round';
+      case '[':
+        return 'square';
+      case ']':
+        return 'square';
+      default:
+        return null;
+    }
   }
 }
 

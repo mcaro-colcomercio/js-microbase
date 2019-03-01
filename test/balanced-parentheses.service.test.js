@@ -53,8 +53,48 @@ describe('Should Style: Balanced Parentheses', () => {
     balancedParentheses.validate().should.equal(true);
   });
 
+  it('(()((())())) should be balanced', () => {
+    let balancedParentheses = new BalancedParentheses('(()((())()))');
+    balancedParentheses.validate().should.equal(true);
+  });
+
   it('a()) should not be balanced', () => {
     let balancedParentheses = new BalancedParentheses('a())');
+    balancedParentheses.validate().should.equal(false);
+  });
+
+  it('[] should be balanced', () => {
+    let balancedParentheses = new BalancedParentheses('[]');
+    balancedParentheses.validate().should.equal(true);
+  });
+
+  it('][ should not be balanced', () => {
+    let balancedParentheses = new BalancedParentheses('][');
+    balancedParentheses.validate().should.equal(false);
+  });
+
+  it('[][ should not be balanced', () => {
+    let balancedParentheses = new BalancedParentheses('[][');
+    balancedParentheses.validate().should.equal(false);
+  });
+
+  it('[[[]]] should be balanced', () => {
+    let balancedParentheses = new BalancedParentheses('[[[]]]');
+    balancedParentheses.validate().should.equal(true);
+  });
+
+  it('a[]] should not be balanced', () => {
+    let balancedParentheses = new BalancedParentheses('a[]]');
+    balancedParentheses.validate().should.equal(false);
+  });
+
+  it('([ should not be balanced', () => {
+    let balancedParentheses = new BalancedParentheses('([');
+    balancedParentheses.validate().should.equal(false);
+  });
+
+  it('(] should not be balanced', () => {
+    let balancedParentheses = new BalancedParentheses('(]');
     balancedParentheses.validate().should.equal(false);
   });
 });
