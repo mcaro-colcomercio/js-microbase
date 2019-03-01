@@ -103,7 +103,7 @@ describe('Should Style: Balanced Parentheses', () => {
     balancedParentheses.validate().should.equal(false);
   });
 
-  it('([]) should not be balanced', () => {
+  it('([]) should be balanced', () => {
     let balancedParentheses = new BalancedParentheses('([])');
     balancedParentheses.validate().should.equal(true);
   });
