@@ -49,9 +49,14 @@ class BalancedParentheses {
       if (
         this.isClose(element) &&
         this.stack.length > 0 &&
-        this.isSameType(this.data[i - 1], element)
+        this.isSameType(this.stack[this.stack.length - 1], element)
       ) {
         this.stack.pop();
+      } else if (
+        this.isClose(element) &&
+        !this.isSameType(this.stack[this.stack.length - 1], element)
+      ) {
+        break;
       }
 
       if (this.stack.length === 0) {
