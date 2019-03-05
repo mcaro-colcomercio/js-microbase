@@ -15,10 +15,11 @@
     "chai": "^4.2.0",
     "dotenv": "^1.2.0",
     "mocha": "^6.0.2",
+    "nyc": "^13.3.0",
     "sinon": "^7.2.5"
   },
   "scripts": {
     "start": "node app.js",
-    "test": "mocha test"
+    "test": "nyc mocha test"
   }
 }

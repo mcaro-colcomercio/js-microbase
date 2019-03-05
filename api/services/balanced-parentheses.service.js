@@ -1,45 +1,75 @@
 /* eslint-disable require-jsdoc */
 'use strict';
 
+const PARENTHESES = {
+  '(': {
+    'type': 'round',
+    'status': 'open',
+  },
+  ')': {
+    'type': 'round',
+    'status': 'close',
+  },
+  '[': {
+    'type': 'square',
+    'status': 'open',
+  },
+  ']': {
+    'type': 'square',
+    'status': 'close',
+  },
+};
+
 class BalancedParentheses {
-  constructor(data) {
+  constructor(data = ')(') {
     this.data = data;
+    this.firstData = ')';
+    this.lastData = '(';
     this.stack = [];
     this.valid = false;
   }
 
   validate() {
-    if (this.isEmpty()) {
+    this.data = this.matchParentheses(this.data);
+
+    if (this.isEmpty(this.data)) {
       return this.valid;
     }
 
-    this.cleanNonParentheses();
+    this.setFirstAndLast(this.data);
 
     if (
-      this.isClose(this.data[0]) ||
-      this.isOpen(this.data[this.data.length - 1])
+      this.unbalancedEnds(this.firstData, this.lastData)
     ) {
       return this.valid;
     }
 
-    return this.validateByElement();
+    return this.validateElementByElement();
   }
 
-  isEmpty() {
-    return this.data.length === 0;
+  matchParentheses(data) {
+    return data.match(/\(|\)|\[|\]/g);
   }
 
-  cleanNonParentheses() {
-    this.data = this.data.match(/\(|\)|\[|\]/g);
+  isEmpty(data = null) {
+    return !data || data.length === 0;
   }
 
-  validateByElement() {
+  setFirstAndLast(data) {
+    this.firstData = data[0] || ')';
+    this.lastData = data[data.length - 1] || '(';
+  }
+
+  unbalancedEnds(first = ')', last = '(') {
+    return this.isClose(first) || this.isOpen(last);
+  }
+
+  validateElementByElement() {
     for (let i = 0; i < this.data.length; i++) {
       const element = this.data[i];
+      const lastStack = this.stack[this.stack.length - 1];
 
-      if (this.isOpen(element)) {
-        this.stack.push(element);
-      }
+      this.addToStack(element);
 
       if (this.isClose(element) && this.stack.length === 0) {
         this.valid = false;
@@ -49,7 +79,7 @@ class BalancedParentheses {
       if (
         this.isClose(element) &&
         this.stack.length > 0 &&
-        this.isSameType(this.stack[this.stack.length - 1], element)
+        this.isSameType(lastStack, element)
       ) {
         this.stack.pop();
       } else if (
@@ -67,31 +97,22 @@ class BalancedParentheses {
     return this.valid;
   }
 
+  addToStack(element) {
+    if (this.isOpen(element)) {
+      this.stack.push(element);
+    }
+  }
+
   isOpen(element) {
-    return element === '(' || element === '[';
+    return PARENTHESES[element].status === 'open';
   }
 
   isClose(element) {
-    return element === ')' || element === ']';
+    return PARENTHESES[element].status === 'close';
   }
 
   isSameType(prev, current) {
-    return this.whoIs(prev) === this.whoIs(current);
-  }
-
-  whoIs(current) {
-    switch (current) {
-      case '(':
-        return 'round';
-      case ')':
-        return 'round';
-      case '[':
-        return 'square';
-      case ']':
-        return 'square';
-      default:
-        return null;
-    }
+    return PARENTHESES[prev].type === PARENTHESES[current].type;
   }
 }
 
